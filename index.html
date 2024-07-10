@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="FusionDTI: Fine-grained Binding Discovery with Token-level Fusion for Drug-Target Interaction">
+  <meta name="keywords" content="FusionDTI, Drug-Target Interaction, Token-level Fusion, BAN, CAN">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FusionDTI</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="shortcut icon" href="path/to/favicon.ico" type="image/x-icon">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"></h1>
+          <h2 class="title is-2 publication-title">FusionDTI: Fine-grained Binding Discovery with Token-level Fusion for Drug-Target Interaction</h2>
+          <div class="is-size-5">
+            <span class="author-block"><a href="https://ai4biomed.org/author/zhaohan-meng/" style="font-weight:normal;">Zhaohan Meng</a>,</span>
+            <span class="author-block"><a href="https://mengzaiqiao.github.io" style="font-weight:normal;">Zaiqiao Meng<sup>*</sup></a>,</span>
+            <span class="author-block"><a href="https://www.dcs.gla.ac.uk/~ounis/" style="font-weight:normal;">Iadh Ounis</a></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b style="color:#f68946; font-weight:normal">&#x25B6 </b>University of Glasgow</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block" style="font-size: 90%;">* Corresponding author</span>
+          </div>
+          <br>
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2406.01651" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/ZhaohanM/FusionDTI" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/spaces/Gla-AI4BioMed-Lab/FusionDTI" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fa fa-play"></i></span>
+                <span>Demo</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Predicting drug-target interaction (DTI) is critical in the drug discovery process. Despite remarkable advances in recent DTI models through the integration of representations from diverse drug and target encoders, such models often struggle to capture the fine-grained interactions between drugs and protein, i.e. the binding of specific drug atoms (or substructures) and key amino acids of proteins, which is crucial for understanding the binding mechanisms and optimising drug design. </p>
+          <p>
+            To address this issue, this paper introduces a novel model, called FusionDTI, which uses a token-level Fusion module to effectively learn fine-grained information for Drug-Target Interaction. In particular, our FusionDTI model uses the SELFIES representation of drugs to mitigate sequence fragment invalidation and incorporates the structure-aware (SA) vocabulary of target proteins to address the limitation of amino acid sequences in structural information, additionally leveraging pre-trained language models extensively trained on large-scale biomedical datasets as encoders to capture the complex information of drugs and targets. Experiments on three well-known benchmark datasets show that our proposed FusionDTI model achieves the best performance in DTI prediction compared with seven existing state-of-the-art baselines. Furthermore, our case study indicates that FusionDTI could highlight the potential binding sites, enhancing the explainability of the DTI prediction.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Overall Framework</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content has-text-justified">
+          <p><b>Input:</b> The initial inputs of drugs and targets are string-based representations. For protein, the SA vocabulary is employed, where each residue is replaced by one of 441 SA vocabularies that bind an amino acid to a 3D geometric feature to address the lack of structural information in the amino acid sequences. For drug, as mentioned in the previous section, we use the SELFIES, which is a formal syntax that always generates valid molecular graphs. We provide the steps for obtaining SA and SELFIES sequences in Code.</p>
+          <p><b>Encoder:</b> The proposed model contains two frozen encoders: Saport and SELFormer, which generate a drug representation and a protein representation separately. It is of note that FusionDTI is flexible enough to easily replace encoders with other advanced PLMs. Furthermore, they are stored in memory for later-stage online training.</p>
+          <p><b>Fusion module:</b> In developing FusionDTI, we have investigated two options for the fusion module: <b>BAN</b> and <b>CAN</b> to fuse representations. The <b>CAN</b> is utilised to fuse each pair and then concatenate them into one <b>F</b> for fine-grained binding information. For <b>BAN</b>, we need to obtain the bilinear attention map and then generate <b>F</b> through the bilinear pooling layer.</p>
+          <p><b>Prediction head:</b> Finally, we obtain the <b>p</b> of the DTI prediction by a multilayer perceptron (MLP) classifier trained with the binary cross-entropy loss.</p>
+          <img src="images/Proposed_model.pdf" alt="Proposed Model" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Fusion Module</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content has-text-justified">
+          <p>In order to capture the fine-grained binding information between a drug and a target, our FusionDTI model applies a fusion module to learn token-level interactions between the token representations of drugs and targets encoded by their respective encoders. Two fusion modules inspired by the recent literature are investigated to fuse representations: the <b>Bilinear Attention Network</b> and the <b>Cross Attention Network</b>.</p>
+          <img src="images/Fusion_Module.pdf" alt="Fusion Module" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-half">
+        <h3 class="subtitle is-4">In-Domain</h3>
+        <div class="content has-text-centered">
+          <img src="images/In_domain.jpg" alt="In-Domain Results" style="width: 100%; height: auto;">
+        </div>
+      </div>
+      <div class="column is-half">
+        <h3 class="subtitle is-4">Cross-Domain</h3>
+        <div class="content has-text-centered">
+          <img src="images/cross_domain.jpg" alt="Cross-Domain Results" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@inproceedings{anonymous2024fusiondti,
+  title={Fusion{DTI}: Fine-grained Binding Discovery with Token-level Fusion for Drug-Target Interaction},
+  author={Anonymous},
+  booktitle={ICML 2024 AI for Science Workshop},
+  year={2024},
+  url={https://openreview.net/forum?id=SRdvBPDdXB}
+}
+    </code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <p>
+      This website template is adapted from the <a href="https://minigpt-4.github.io/">MiniGPT-4</a> project, which is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+<script src="js/underscore-min.js"></script>
+<script src="js/index.js"></script>
+
+</body>
+</html>
+
