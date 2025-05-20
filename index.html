@@ -90,6 +90,17 @@
   </div>
 </section>
 
+<section class="section" id="OnlineDemo">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">FusionDTI Demo</h2>
+    <div class="content has-text-centered">
+      <p>Explore the fine-grained drug–target interactions with our token-level fusion demo.</p>
+      <!-- Gradio App -->
+      <gradio-app src="https://huggingface.co/spaces/Gla-AI4BioMed-Lab/FusionDTI"></gradio-app>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container is-max-widescreen">
     <h2 class="title is-3 has-text-centered">Overall Framework</h2>
@@ -116,23 +127,6 @@
           <p>In order to capture the fine-grained binding information between a drug and a target, our FusionDTI model applies a fusion module to learn token-level interactions between the token representations of drugs and targets encoded by their respective encoders. Two fusion modules inspired by the recent literature are investigated to fuse representations: the <b>Bilinear Attention Network</b> and the <b>Cross Attention Network</b>.</p>
           <img src="images/Fusion_Module.png" alt="Fusion Module" style="width: 100%; height: auto;">
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-widescreen">
-    <h2 class="title is-3 has-text-centered">Interactive Demo</h2>
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <iframe
-          src="https://huggingface.co/spaces/Gla-AI4BioMed-Lab/FusionDTI"
-          width="100%"
-          height="1000px"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
       </div>
     </div>
   </div>
