@@ -17,7 +17,7 @@
   <link rel="shortcut icon" href="path/to/favicon.ico" type="image/x-icon">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.0.0/gradio.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
@@ -101,7 +101,9 @@
     <div class="content has-text-centered">
       <p>Explore the fine-grained drug–target interactions with our token-level fusion demo.</p>
       <!-- Gradio App -->
-      <gradio-app src="https://huggingface.co/spaces/Gla-AI4BioMed-Lab/FusionDTI"></gradio-app>
+      <div class="gradio-embed-wrapper" style="max-width: 100%; margin: auto;">
+        <gradio-app src="https://Gla-AI4BioMed-Lab-FusionDTI.hf.space"></gradio-app>
+      </div>
     </div>
   </div>
 </section>
